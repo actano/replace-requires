@@ -30,61 +30,19 @@ createFileLister = ->
 
     positiveFileFilter = ///
         ^(
-        .+\..+
+#        .+\.jsx         # no requires
 #        |
-#        .+\.jade
+#        .+\.jade        # only correct pattern
 #        |
-#        .+\.styl
+#        .+\.styl        # only correct pattern
 #        |
-#        .+\.jsx
+#        .+\.js          # analysis done, see README.md
 #        |
-#        .+\.json
-#        |
-#        .+\.js
-#        |
-#        .+\.coffee
+        .+\.coffee
         )$
     ///
 
-    negativeFileFilter = ///
-        ^(
-        .+\.md
-        |
-        .+\.yml
-        |
-        .+\.sh
-        |
-        .+\.env
-        |
-        .+\.log
-        |
-        .+\.iml
-        |
-        .+\.lzma
-        |
-        .+\.zip
-        |
-        .+\.svg
-        |
-        .+\.mk
-        |
-        .+\.lock
-        |
-        .+\.opts
-        |
-        .+\.rxf
-        |
-        .+\.xml
-        |
-        .+\.conf
-        |
-        .+\.txt
-        |
-        .+\.html
-        |
-        .*/\..*     # files without extension
-        )$
-    ///
+    negativeFileFilter = undefined
 
     return new FileLister(projectRoot, excludedSubfolders, positiveFileFilter, negativeFileFilter)
 
@@ -115,6 +73,14 @@ checkIfUnwantedRegexIsInFile = Promise.coroutine (file) ->
         \(['"]
         [A-Za-z0-9_/\-\.]+
         ['"]\)
+#        |
+#        window\.require
+        |
+        require[A-Za-z]
+        |
+        [A-Za-z]require
+        |
+        'require'
         )
     ///g
 
@@ -122,8 +88,16 @@ checkIfUnwantedRegexIsInFile = Promise.coroutine (file) ->
 
     fileReader = yield FileReader.create file
 
+    inBlockComment = false
+
     while (fileReader.hasNextLine())
         line = yield fileReader.nextLine()
+
+        {line, inBlockComment} = filterBlockComments line, inBlockComment
+
+        comment = line.indexOf '#'
+        if comment > 0
+            line = line.substring 0, comment
 
         line = line.replace wanted, ''
         if line.match(unwanted)
@@ -131,6 +105,21 @@ checkIfUnwantedRegexIsInFile = Promise.coroutine (file) ->
 
     return false
 
+filterBlockComments = (line, inBlockComment) ->
+    index = line.indexOf '###'
+
+    if inBlockComment
+        if index > 0
+            line = line.substring (index+2)
+            inBlockComment = false
+        else
+            line = ''
+    else
+        if index > 0
+            line = line.substring 0, (index+2)
+            inBlockComment = true
+
+    return {line, inBlockComment}
 
 findFileExtensionsWithRequires = Promise.coroutine ->
     resultSet = new Set()
@@ -163,7 +152,22 @@ findUnwantedRequires = Promise.coroutine ->
 
     return resultSet
 
+findRegexInFiles = Promise.coroutine (regex) ->
+    resultSet = new Set()
+    fileLister = createFileLister()
+    files = yield fileLister.listAllFilesInRootFolder()
+    counter = 0
+
+    for file in files
+        # console.log file, ++counter
+        regexFound = yield checkIfRegexExistsInFile file, regex
+        if regexFound
+            resultSet.add file
+
+    return resultSet
+
 module.exports = {
     findFileExtensionsWithRequires
     findUnwantedRequires
+    findRegexInFiles
 }
