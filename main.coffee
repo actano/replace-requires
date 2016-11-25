@@ -1,4 +1,5 @@
-{findUnwantedRequires, findRegexInFiles} = require './analyze-project/file-analyzer'
+{findRegexInFiles} = require './analyze-project/file-analyzer'
+{findUnwantedRequires} = require './analyze-project/find-invalid-requires'
 
 findUnwantedRequires().then((res)->
     console.log 'Success', res, res.size
