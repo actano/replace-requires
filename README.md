@@ -1,19 +1,24 @@
 # TODO list
 
-* List all requires -> DONE
-** Compare them with outcome of
-** (require '[A-Za-z0-9_-]+'|require\('[A-Za-z0-9_-]+'\))
-** Take actions?
-** Now we are sure to find all requires
+## Preconditions
 
-** List of files/folders in
-*** lib
-*** node_modules
-*** lib/schedulemanager
+### List all requires -> DONE
+* Compare them with outcome of
+* (require '[A-Za-z0-9_-]+'|require\('[A-Za-z0-9_-]+'\))
+* Take actions?
+* Now we are sure to find all requires
 
-** Connect require of absolute path with target in folder
-** Calculate relative path
+### List of files/folders in -> DONE
+* lib
+* node_modules
+* lib/schedulemanager
 
+### Create functions to ...
+* Connect require of absolute path with target in folder
+* Calculate relative path
+* Write changed file
+
+## Tasks
 
 Use absolute paths for node modules only
 * Do nothing
@@ -48,28 +53,23 @@ Do not use dynamic require paths
 Define requires at top level of the file if possible
 * check if it makes sense now to automatically move requires to top level or rather do it after transition to ES6
 * Handle patterns like
-** {expect} = require('chai').use require 'chai-immutable'
+* {expect} = require('chai').use require 'chai-immutable'
 
 
-# Pay attention to the following files:
+## Pay attention to the following files:
 
-## JS
-rplan/index.js
-test/webpack-client-tests.js
-rplan/tools/karma-ie-polyfill.js
-rplan/lib/main/import-users.js              Dynamic require
+### JS
+* rplan/index.js
+* test/webpack-client-tests.js
+* rplan/tools/karma-ie-polyfill.js
+* rplan/lib/main/import-users.js              Dynamic require
 
-## Coffee
-lib/di-container/index.coffee               Dynamic require
-lib/migration/MigrationRuleManager.coffee   Dynamic require
-lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
-lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
-lib/translation-map/index.coffee            Dynamic require
-login/test/browser.client.coffee            require('inject!login/view.coffee')
-page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
-signup/test/browser.client.coffee           require('inject!signup')
-
-
-
-
-
+### Coffee
+* lib/di-container/index.coffee               Dynamic require
+* lib/migration/MigrationRuleManager.coffee   Dynamic require
+* lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
+* lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
+* lib/translation-map/index.coffee            Dynamic require
+* login/test/browser.client.coffee            require('inject!login/view.coffee')
+* page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
+* signup/test/browser.client.coffee           require('inject!signup')
