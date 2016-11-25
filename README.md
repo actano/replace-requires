@@ -49,3 +49,27 @@ Define requires at top level of the file if possible
 * check if it makes sense now to automatically move requires to top level or rather do it after transition to ES6
 * Handle patterns like
 ** {expect} = require('chai').use require 'chai-immutable'
+
+
+# Pay attention to the following files:
+
+## JS
+rplan/index.js
+test/webpack-client-tests.js
+rplan/tools/karma-ie-polyfill.js
+rplan/lib/main/import-users.js              Dynamic require
+
+## Coffee
+lib/di-container/index.coffee               Dynamic require
+lib/migration/MigrationRuleManager.coffee   Dynamic require
+lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
+lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
+lib/translation-map/index.coffee            Dynamic require
+login/test/browser.client.coffee            require('inject!login/view.coffee')
+page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
+signup/test/browser.client.coffee           require('inject!signup')
+
+
+
+
+
