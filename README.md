@@ -1,6 +1,6 @@
 # TODO list
 
-* List all requires
+* List all requires -> DONE
 ** Compare them with outcome of
 ** (require '[A-Za-z0-9_-]+'|require\('[A-Za-z0-9_-]+'\))
 ** Take actions?
