@@ -14,24 +14,25 @@ requirePattern = ///
 #    ['"]\)
 ///g
 
-replaceRequirePaths = (line) ->
-    myFunction = (match, p1, p2, p3) ->
-        p1 + calculateRelativePath(p2) + p3
+replaceRequirePaths = (projectRoot, currentFile, line) ->
+    myFunction = (match, requireStartPart, requiredPathPart, requireEndPart) ->
+        relativePath = calculateRelativePath(projectRoot, currentFile, requiredPathPart)
+        return requireStartPart + relativePath + requireEndPart
 
     return line.replace requirePattern, myFunction
 
-replaceInFile = Promise.coroutine (file) ->
-    readLines = []
+replaceInFile = Promise.coroutine (projectRoot, file) ->
+    processedLines = []
 
     mode = fs.statSync(file).mode
     fileReader = yield FileReader.create file
 
     while fileReader.hasNextLine()
         line = yield fileReader.nextLine()
-        line = replaceRequirePaths line
-        readLines.push (line + '\n')
+        line = replaceRequirePaths projectRoot, file, line
+        processedLines.push (line + '\n')
 
-    data = readLines.join()
+    data = processedLines.join()
     fs.writeFileSync file, data, {mode}
 
 module.exports = {
