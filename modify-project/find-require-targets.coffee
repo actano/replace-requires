@@ -1,21 +1,19 @@
-Promise = require 'bluebird'
-fs = Promise.promisifyAll require('fs')
+fs = require('fs')
 path = require 'path'
 {projectRoot} = require '../config'
 
-listDirectories = Promise.coroutine (directory) ->
+listDirectories = (directory) ->
     directory = path.join projectRoot, directory
-    files = yield fs.readdirAsync(directory)
-    return files.map (file) -> path.join(directory, file)
+    return fs.readdirSync(directory)
 
-listNodeModules = Promise.coroutine ->
-    yield listDirectories 'node_modules'
+listNodeModules = ->
+    listDirectories 'node_modules'
 
-listLib = Promise.coroutine ->
-    yield listDirectories 'lib'
+listLib = ->
+    listDirectories 'lib'
 
-listSchedulemanager = Promise.coroutine ->
-    yield listDirectories 'lib/schedulemanager'
+listSchedulemanager = ->
+    listDirectories 'lib/schedulemanager'
 
 module.exports = {
     listNodeModules
