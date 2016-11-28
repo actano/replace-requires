@@ -9,13 +9,13 @@ path = require 'path'
 
 describe 'replace-in-files', ->
     testRoot = path.resolve('./test_data')
-    testFile = path.join testRoot, 'MyTestFile.txt'
+    testFile = path.join testRoot, 'my-test-file.txt'
 
     before ->
         fs.writeFileSync testFile, '{function} = require \'schedulemanager/module/file\'\nsome code\n'
 
 
     describe 'replaceInFile', ->
-        it.only 'should replace', Promise.coroutine ->
+        it 'should replace', Promise.coroutine ->
             yield replaceInFile testRoot, testFile
             expect(true).to.be.true

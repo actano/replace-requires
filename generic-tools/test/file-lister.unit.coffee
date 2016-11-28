@@ -8,8 +8,11 @@ path = require 'path'
 
 {FileLister} = require '../file-lister'
 
-describe 'file-manipulation', ->
+describe 'file-lister', ->
     testRoot = path.resolve('./test_data')
+    unless fs.existsSync testRoot
+        fs.mkdirSync testRoot
+    testRoot = path.join testRoot, 'file-lister'
 
     describe 'FileLister', ->
         before 'Create test folder', ->
