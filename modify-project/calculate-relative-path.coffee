@@ -56,6 +56,7 @@ calculateRelativePath = (projectRoot, currentFile, requiredPath) ->
 
     if LIB.includes topLevelFile
         file = 'lib'
+
     if SCHEDULEMANAGER.includes topLevelFile
         file = 'lib/schedulemanager'
 
