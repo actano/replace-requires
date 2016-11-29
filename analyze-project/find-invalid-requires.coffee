@@ -1,7 +1,6 @@
 Promise = require 'bluebird'
 fs = Promise.promisifyAll require('fs')
-{FileReader} = require './../generic-tools/file-lister'
-{createFileLister} = require './file-analyzer'
+{FileReader, createFileLister} = require './../generic-tools/file-lister'
 
 getFileExtension = (file) ->
 	index = file.lastIndexOf('.')

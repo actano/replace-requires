@@ -1,9 +1,5 @@
 Promise = require 'bluebird'
-fs = Promise.promisifyAll require('fs')
-{FileLister, FileReader} = require './../generic-tools/file-lister'
-
-createFileLister = (config) ->
-    return new FileLister(config.projectRoot, config.excludedSubfolders, config.positiveFileFilter, config.negativeFileFilter)
+{createFileLister, FileReader} = require './../generic-tools/file-lister'
 
 checkIfRegexExistsInFile = Promise.coroutine (file, regex) ->
     fileReader = yield FileReader.create file
@@ -33,6 +29,5 @@ findRegexInFiles = Promise.coroutine (config) ->
     return resultSet
 
 module.exports = {
-    createFileLister
     findRegexInFiles
 }

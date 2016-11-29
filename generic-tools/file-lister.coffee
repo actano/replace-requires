@@ -81,7 +81,11 @@ class FileReader
         yield fileReader.initialize()
         return fileReader
 
+createFileLister = (config) ->
+    return new FileLister(config.projectRoot, config.excludedSubfolders, config.positiveFileFilter, config.negativeFileFilter)
+
 module.exports = {
     FileLister
     FileReader
+    createFileLister
 }

@@ -1,6 +1,6 @@
 Promise = require 'bluebird'
 fs = require 'fs'
-{FileReader} = require '../generic-tools/file-lister'
+{FileReader, createFileLister} = require '../generic-tools/file-lister'
 {calculateRelativePath} = require './calculate-relative-path'
 
 replaceRequirePaths = (config, currentFile, line) ->
