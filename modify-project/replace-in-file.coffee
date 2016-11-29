@@ -31,7 +31,7 @@ replaceInFiles = Promise.coroutine (config) ->
 
     for file in files
         # console.log file, ++counter
-        yield replaceInFile config.projectRoot, file
+        yield replaceInFile config, file
 
 module.exports = {
     replaceInFile
