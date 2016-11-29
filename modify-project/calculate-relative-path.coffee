@@ -55,7 +55,7 @@ calculateRelativePath = (projectRoot, currentFile, requiredPath) ->
     numberOfTargets = countTargets(topLevelFile)
 
     if (numberOfTargets isnt 1)
-        throw Error('Ínvalid number of targets (expected 1): ' + numberOfTargets)
+        throw Error('File ' + currentFile + ', path: ' + requiredPath + ': Ínvalid number of targets (expected 1): ' + numberOfTargets)
 
     if NODE_MODULES.includes topLevelFile
         return requiredPath
