@@ -1,4 +1,5 @@
 {findRegexInFiles} = require './analyze-project/file-analyzer'
+{replaceInFiles} = require './modify-project/replace-in-file'
 {projectRoot} = require './config'
 
 config = {
@@ -45,14 +46,13 @@ config = {
     ///
 
     requirePattern: ///
-       (require\s+['"])
-       ([A-Za-z0-9_/\-\.]+)
-       (['"])
-       |
-       require
-       \(['"]
-       [A-Za-z0-9_/\-\.]+
-       ['"]\)
+#       (require\s+['"])
+#       ([A-Za-z0-9_/\-\.]+)
+#       (['"])
+#       |
+       (require\(['])
+       ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]*)
+       ([']\))
     ///g
 }
 
