@@ -12,10 +12,14 @@ describe 'replace-in-files', ->
     testFile = path.join testRoot, 'my-test-file.txt'
 
     before ->
-        fs.writeFileSync testFile, '{function} = require \'schedulemanager/module/file\'\nsome code\n'
-
+        fs.writeFileSync testFile, '{function} = require \'schedulemanager/module/file\'\nsome code\nsome more code\n'
 
     describe 'replaceInFile', ->
         it 'should replace', Promise.coroutine ->
-            yield replaceInFile testRoot, testFile
+            requirePattern = ///
+                (require\s['])
+                ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]*)
+                (['])
+            ///g
+            yield replaceInFile {projectRoot: testRoot, requirePattern: requirePattern}, testFile
             expect(true).to.be.true
