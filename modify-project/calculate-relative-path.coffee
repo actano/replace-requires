@@ -39,17 +39,23 @@ calculateRelativePathFromAbsolutePaths = (currentFile, requiredPath) ->
     index = indexOfFirstDifference(currentFileDirectories, requiredDirectories)
     requiredDirectories = requiredDirectories.slice index
 
-    return currentFileDirectories
+    res = currentFileDirectories
         .slice index, currentFileDirectories.length - 1
         .map -> '..'
         .concat requiredDirectories
         .join '/'
 
+    unless res.startsWith '..'
+        res = './' + res
+
+    return res
+
 calculateRelativePath = (projectRoot, currentFile, requiredPath) ->
     topLevelFile = getTopLevelFile requiredPath
+    numberOfTargets = countTargets(topLevelFile)
 
-    if (countTargets(topLevelFile) isnt 1)
-        throw Error()
+    if (numberOfTargets isnt 1)
+        throw Error('Ínvalid number of targets (expected 1): ' + numberOfTargets)
 
     if NODE_MODULES.includes topLevelFile
         return requiredPath
