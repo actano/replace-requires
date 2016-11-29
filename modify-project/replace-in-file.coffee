@@ -24,6 +24,16 @@ replaceInFile = Promise.coroutine (config, file) ->
     data = processedLines.join()
     fs.writeFileSync file, data, {mode}
 
+replaceInFiles = Promise.coroutine (config) ->
+    fileLister = createFileLister config
+    files = yield fileLister.listAllFilesInRootFolder()
+    counter = 0
+
+    for file in files
+        # console.log file, ++counter
+        yield replaceInFile config.projectRoot, file
+
 module.exports = {
     replaceInFile
+    replaceInFiles
 }
