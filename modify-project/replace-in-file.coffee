@@ -4,11 +4,11 @@ fs = require 'fs'
 {calculateRelativePath} = require './calculate-relative-path'
 
 replaceRequirePaths = (config, currentFile, line) ->
-    myFunction = (match, requireStartPart, requiredPathPart, requireEndPart) ->
+    replacementFunction = (match, requireStartPart, requiredPathPart, requireEndPart) ->
         relativePath = calculateRelativePath(config.projectRoot, currentFile, requiredPathPart)
         return requireStartPart + relativePath + requireEndPart
 
-    return line.replace config.requirePattern, myFunction
+    return line.replace config.requirePattern, replacementFunction
 
 replaceInFile = Promise.coroutine (config, file) ->
     processedLines = []
@@ -21,7 +21,7 @@ replaceInFile = Promise.coroutine (config, file) ->
         line = replaceRequirePaths config, file, line
         processedLines.push (line + '\n')
 
-    data = processedLines.join()
+    data = processedLines.join('')
     fs.writeFileSync file, data, {mode}
 
 replaceInFiles = Promise.coroutine (config) ->
