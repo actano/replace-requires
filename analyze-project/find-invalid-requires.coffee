@@ -66,12 +66,12 @@ filterBlockComments = (line, inBlockComment) ->
 
 	return {line, inBlockComment}
 
-findFileExtensionsWithRequires = Promise.coroutine ->
+findFileExtensionsWithRequires = Promise.coroutine (config) ->
 	resultSet = new Set()
 	regex = /require/g
 	counter = 0
 
-	fileLister = createFileLister()
+	fileLister = createFileLister config
 	files = yield fileLister.listAllFilesInRootFolder()
 
 	for file in files
@@ -83,9 +83,9 @@ findFileExtensionsWithRequires = Promise.coroutine ->
 	return resultSet
 
 
-findUnwantedRequires = Promise.coroutine ->
+findUnwantedRequires = Promise.coroutine (config) ->
 	resultSet = new Set()
-	fileLister = createFileLister()
+	fileLister = createFileLister config
 	files = yield fileLister.listAllFilesInRootFolder()
 	counter = 0
 

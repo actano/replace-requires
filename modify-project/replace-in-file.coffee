@@ -3,25 +3,14 @@ fs = require 'fs'
 {FileReader} = require '../generic-tools/file-lister'
 {calculateRelativePath} = require './calculate-relative-path'
 
-requirePattern = ///
-    (require\s+['"])
-    ([A-Za-z0-9_/\-\.]+)
-    (['"])
-#    |
-#    require
-#    \(['"]
-#    [A-Za-z0-9_/\-\.]+
-#    ['"]\)
-///g
-
-replaceRequirePaths = (projectRoot, currentFile, line) ->
+replaceRequirePaths = (config, currentFile, line) ->
     myFunction = (match, requireStartPart, requiredPathPart, requireEndPart) ->
-        relativePath = calculateRelativePath(projectRoot, currentFile, requiredPathPart)
+        relativePath = calculateRelativePath(config.projectRoot, currentFile, requiredPathPart)
         return requireStartPart + relativePath + requireEndPart
 
-    return line.replace requirePattern, myFunction
+    return line.replace config.requirePattern, myFunction
 
-replaceInFile = Promise.coroutine (projectRoot, file) ->
+replaceInFile = Promise.coroutine (config, file) ->
     processedLines = []
 
     mode = fs.statSync(file).mode
@@ -29,7 +18,7 @@ replaceInFile = Promise.coroutine (projectRoot, file) ->
 
     while fileReader.hasNextLine()
         line = yield fileReader.nextLine()
-        line = replaceRequirePaths projectRoot, file, line
+        line = replaceRequirePaths config, file, line
         processedLines.push (line + '\n')
 
     data = processedLines.join()

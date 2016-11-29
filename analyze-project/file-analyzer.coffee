@@ -1,71 +1,32 @@
 Promise = require 'bluebird'
 fs = Promise.promisifyAll require('fs')
 {FileLister, FileReader} = require './../generic-tools/file-lister'
-{projectRoot} = require '../config'
 
-createFileLister = ->
-    excludedSubfolders = ///
-        ^(
-        /node_modules
-        |
-        /build
-        |
-        /karma\-[0-9]+
-        |
-        /test_reports
-        |
-        /agreements
-        |
-        /best_practices
-        |
-        /etc
-        |
-        /docs
-        |
-        /export
-        |
-        .*/\..*            # All folders that start with a dot (.)
-        )$
-    ///
-
-    positiveFileFilter = ///
-        ^(
-#        .+\.jsx         # no requires
-#        |
-#        .+\.jade        # only correct pattern
-#        |
-#        .+\.styl        # only correct pattern
-#        |
-#        .+\.js          # analysis done, see README.md
-#        |
-        .+\.coffee
-        )$
-    ///
-
-    negativeFileFilter = undefined
-
-    return new FileLister(projectRoot, excludedSubfolders, positiveFileFilter, negativeFileFilter)
+createFileLister = (config) ->
+    return new FileLister(config.projectRoot, config.excludedSubfolders, config.positiveFileFilter, config.negativeFileFilter)
 
 checkIfRegexExistsInFile = Promise.coroutine (file, regex) ->
     fileReader = yield FileReader.create file
+
+    result = false
 
     while (fileReader.hasNextLine())
         line = yield fileReader.nextLine()
 
         if line.match regex
-            return true
+            result = true
 
-    return false
+    return result
 
-findRegexInFiles = Promise.coroutine (regex) ->
+findRegexInFiles = Promise.coroutine (config) ->
     resultSet = new Set()
-    fileLister = createFileLister()
+    fileLister = createFileLister(config)
     files = yield fileLister.listAllFilesInRootFolder()
     counter = 0
 
     for file in files
         # console.log file, ++counter
-        regexFound = yield checkIfRegexExistsInFile file, regex
+        regexFound = yield checkIfRegexExistsInFile file, config.requirePattern
         if regexFound
             resultSet.add file
 
