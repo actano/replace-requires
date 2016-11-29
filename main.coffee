@@ -5,8 +5,6 @@
 config = {
     projectRoot: projectRoot
 
-    negativeFileFilter: undefined
-
     excludedSubfolders: ///
         ^(
         /node_modules
@@ -45,18 +43,25 @@ config = {
         )$
     ///
 
+    negativeFileFilter: ///
+        ^(
+        /lib/testutils/views/test\.jade
+        )$
+    ///
+
     requirePattern: ///
 #       (require\s+['"])
 #       ([A-Za-z0-9_/\-\.]+)
 #       (['"])
 #       |
-       (require\(['])
+       (require\(')
        ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]*)
-       ([']\))
+       ('\))
     ///g
 }
 
 findRegexInFiles(config).then((res)->
+#replaceInFiles(config).then((res)->
     console.log 'Success', res, res.size
 ).catch((error) ->
     console.error 'Error', error
