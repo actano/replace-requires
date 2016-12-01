@@ -54,7 +54,15 @@ calculateRelativePath = (projectRoot, currentFile, requiredPath) ->
     topLevelFile = getTopLevelFile requiredPath
     numberOfTargets = countTargets(topLevelFile)
 
+    nativeNodeModules = ['fs', 'stream', 'path', 'crypto', 'child_process', 'os', 'cluster', 'http']
+
     if (numberOfTargets isnt 1)
+        if (numberOfTargets is 2 and requiredPath.startsWith 'couchbase')
+            return requiredPath
+
+        if numberOfTargets is 0 and nativeNodeModules.includes requiredPath
+            return requiredPath
+
         throw Error('File ' + currentFile + ', path: ' + requiredPath + ': Ínvalid number of targets (expected 1): ' + numberOfTargets)
 
     if NODE_MODULES.includes topLevelFile
