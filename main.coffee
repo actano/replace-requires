@@ -33,36 +33,48 @@ config = {
         ^(
 #        .+\.jsx         # no requires
 #        |
-        .+\.jade        # only correct pattern
+#        .+\.jade        # only correct pattern: mixins make stuff difficult
 #        |
-#        .+\.styl        # only correct pattern
+#        .+\.styl        # only correct pattern: No absolute requires
 #        |
-#        .+\.js          # analysis done, see README.md
+#        .+\.js          # analysis done, see README.md, only one change: lib/styleguide/Readme.js
 #        |
-#        .+\.coffee
+        .+\.coffee
         )$
     ///
 
     negativeFileFilter: ///
         ^(
         /lib/testutils/views/test\.jade
+        |
+        /tools/config\.js                   # OK, nothing to do
         )$
     ///
 
     requirePattern: ///
-#       (require\s+['"])
-#       ([A-Za-z0-9_/\-\.]+)
-#       (['"])
+       (require\s+')
+       ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]+)
+       (')
 #       |
-       (require\(')
-       ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]*)
-       ('\))
+#       (require\(')
+#       ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]*)
+#       ('\))
     ///g
 }
 
+
+
 findRegexInFiles(config).then((res)->
-#replaceInFiles(config).then((res)->
     console.log 'Success', res, res.size
 ).catch((error) ->
     console.error 'Error', error
 )
+
+return
+
+replaceInFiles(config).then(->
+    console.log 'Success'
+).catch((error) ->
+    console.error 'Error', error
+)
+
