@@ -59,17 +59,17 @@ Define requires at top level of the file if possible
 ## Pay attention to the following files:
 
 ### JS
-* rplan/index.js
-* test/webpack-client-tests.js
-* rplan/tools/karma-ie-polyfill.js
-* rplan/lib/main/import-users.js              Dynamic require
+* [x] rplan/index.js
+* [x] test/webpack-client-tests.js
+* [x] rplan/tools/karma-ie-polyfill.js
+* [x] rplan/lib/main/import-users.js              Dynamic require
 
 ### Coffee
-* lib/di-container/index.coffee               Dynamic require
-* lib/migration/MigrationRuleManager.coffee   Dynamic require
-* lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
-* lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
-* lib/translation-map/index.coffee            Dynamic require
-* login/test/browser.client.coffee            require('inject!login/view.coffee')
-* page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
-* signup/test/browser.client.coffee           require('inject!signup')
+* [ ] lib/di-container/index.coffee               Dynamic require
+* [ ] lib/migration/MigrationRuleManager.coffee   Dynamic require
+* [ ] lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
+* [ ] lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
+* [ ] lib/translation-map/index.coffee            Dynamic require
+* [ ] login/test/browser.client.coffee            require('inject!login/view.coffee')
+* [ ] page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
+* [ ] signup/test/browser.client.coffee           require('inject!signup')
