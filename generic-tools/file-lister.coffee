@@ -39,15 +39,18 @@ class FileLister
     addFileToResult: (file) ->
         fileRelativeToRoot = @makeRelativeToRoot(file)
 
-        if @positiveFileFilter.test(fileRelativeToRoot) and not @negativeFileFilter.test(fileRelativeToRoot)
-            @resultArray.push(file)
+        # TODO: Uncomment this out after renmaing client to index files
+#        if @positiveFileFilter.test(fileRelativeToRoot) and not @negativeFileFilter.test(fileRelativeToRoot)
+#            @resultArray.push(file)
 
     addChildrenToQueue: Promise.coroutine (directory) ->
         files = yield fs.readdirAsync(directory)
 
-#        if (files.includes 'client.coffee') and not files.includes 'index.coffee'
-#            unless directory.endsWith('/test')
-#                @resultArray.push(directory)
+        # TODO: Comment this out after renmaing client to index files
+        if (files.includes 'client.coffee') and not files.includes 'index.coffee'
+            unless directory.endsWith('/test')
+                @resultArray.push(directory)
+        # end
 
         files = files.map (file) -> path.join(directory, file)
 
