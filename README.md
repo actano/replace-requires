@@ -65,11 +65,11 @@ Define requires at top level of the file if possible
 * [x] rplan/lib/main/import-users.js              Dynamic require
 
 ### Coffee
-* [ ] lib/di-container/index.coffee               Dynamic require
-* [ ] lib/migration/MigrationRuleManager.coffee   Dynamic require
-* [ ] lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
-* [ ] lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
-* [ ] lib/translation-map/index.coffee            Dynamic require
-* [ ] login/test/browser.client.coffee            require('inject!login/view.coffee')
-* [ ] page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
-* [ ] signup/test/browser.client.coffee           require('inject!signup')
+* [x] lib/di-container/index.coffee               Dynamic require
+* [x] lib/migration/MigrationRuleManager.coffee   Dynamic require
+* [x] lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
+* [x] lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
+* [x] lib/translation-map/index.coffee            Dynamic require
+* [x] login/test/browser.client.coffee            require('inject!login/view.coffee')
+* [x] page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
+* [x] signup/test/browser.client.coffee           require('inject!signup')
