@@ -44,6 +44,11 @@ class FileLister
 
     addChildrenToQueue: Promise.coroutine (directory) ->
         files = yield fs.readdirAsync(directory)
+
+#        if (files.includes 'client.coffee') and not files.includes 'index.coffee'
+#            unless directory.endsWith('/test')
+#                @resultArray.push(directory)
+
         files = files.map (file) -> path.join(directory, file)
 
         @queue.enqueueMulti(files)
