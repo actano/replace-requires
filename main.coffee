@@ -1,3 +1,4 @@
+{FileLister} = require './generic-tools/file-lister'
 {findRegexInFiles} = require './analyze-project/file-analyzer'
 {replaceInFiles} = require './modify-project/replace-in-file'
 {projectRoot} = require './config'
@@ -33,9 +34,9 @@ config = {
         ^(
 #        .+\.jsx         # no requires
 #        |
-#        .+\.jade        # only correct pattern: mixins make stuff difficult
+#        .+\.jade        # completely done
 #        |
-#        .+\.styl        # only correct pattern: No absolute requires
+#        .+\.styl        # completely done
 #        |
 #        .+\.js          # analysis done, see README.md, only one change: lib/styleguide/Readme.js
 #        |
@@ -45,32 +46,40 @@ config = {
 
     negativeFileFilter: ///
         ^(
-        /lib/testutils/views/test\.jade
-        |
         /tools/config\.js                   # OK, nothing to do
         )$
     ///
 
     requirePattern: ///
-       (require\s+')
-       ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]+)
-       (')
+#       (include\s)
+#       ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]*)
+#       ([a-z])
+       (require\s*\(?['"])
+       ([A-Za-z0-9_/\-\.]+)
+       (['"]\)?)
 #       |
 #       (require\(')
-#       ([A-Za-z0-9_/\-][A-Za-z0-9_/\-\.]*)
+#       (\.[A-Za-z0-9_/\-\.]+)
 #       ('\))
     ///g
 }
 
 
-
-findRegexInFiles(config).then((res)->
-    console.log 'Success', res, res.size
-).catch((error) ->
-    console.error 'Error', error
-)
-
-return
+#new FileLister(config.projectRoot, config.excludedSubfolders).listAllFilesInRootFolder().then((res)->
+#    console.log 'Success', res, res.length
+#).catch((error) ->
+#    console.error 'Error', error
+#)
+#
+#return
+#
+#findRegexInFiles(config).then((res)->
+#    console.log 'Success', res, res.size
+#).catch((error) ->
+#    console.error 'Error', error
+#)
+#
+#return
 
 replaceInFiles(config).then(->
     console.log 'Success'
