@@ -13,29 +13,24 @@
 * node_modules
 * lib/schedulemanager
 
-### Create functions to ...
+### Create functions to ... -> DONE
 * Connect require of absolute path with target in folder
 * Calculate relative path
 * Write changed file
 
 ## Tasks
 
-Use absolute paths for node modules only
+Use absolute paths for node modules only -> DONE
 * Do nothing
 
-Use relative paths for everything else
+Use relative paths for everything else -> DONE
 * Change absolute to relative requires for all file paths
 * get rid of `lib` entry point for webpack
 * get rid of `lib/schedulemanager` entry point for webpack
 
-Explicitly all filenames but 'index'
+Explicitly name all filenames but 'index'
 * Explicitly name 'client' file in require,
 * get rid of the default `client` entry point for webpack
-
-Only use 'client' if there is also an 'index' file in the folder
-* Check if there are folders with file client.coffee/js but without index.coffee/js
-* In this case: Rename client files to index files
-* Adjust requires
 
 Don't use file extensions for .coffee and .js files
 * Find requires with file extension .js / .coffee
@@ -45,6 +40,14 @@ Use file extensions for all other types (needed by webpack)
 * Connect files with target
 * Print all targets that are not of type '.coffee' / '.js'
 * Manually repair
+
+
+
+
+Only use 'client' if there is also an 'index' file in the folder
+* Check if there are folders with file client.coffee/js but without index.coffee/js
+* In this case: Rename client files to index files
+* Adjust requires
 
 Do not use dynamic require paths
 * Check if dynamic require path are used
