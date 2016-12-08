@@ -76,3 +76,8 @@ Define requires at top level of the file if possible
 * [x] login/test/browser.client.coffee            require('inject!login/view.coffee')
 * [x] page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
 * [x] signup/test/browser.client.coffee           require('inject!signup')
+
+
+## Further cleanup
+* Convert lib/webapp/webapp.coffee into ES6 and remove the webapp.js
+* Remove lib/styleguide and references in lib/icon
