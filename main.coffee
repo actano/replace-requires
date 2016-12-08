@@ -3,6 +3,9 @@
 {replaceInFiles} = require './modify-project/replace-in-file'
 {projectRoot} = require './config'
 
+fs = require 'fs'
+path = require 'path'
+
 config = {
     projectRoot: projectRoot
 
@@ -67,11 +70,17 @@ config = {
 
 #new FileLister(config.projectRoot, config.excludedSubfolders).listAllFilesInRootFolder().then((res)->
 #    console.log 'Success', res, res.length
+#    for folder in res
+#        oldFile = path.join folder, 'client.coffee'
+#        newFile = path.join folder, 'index.coffee'
+#        fs.renameSync oldFile, newFile
+#
 #).catch((error) ->
 #    console.error 'Error', error
 #)
 #
 #return
+
 #
 #findRegexInFiles(config).then((res)->
 #    console.log 'Success', res, res.size
