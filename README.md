@@ -81,3 +81,12 @@ Define requires at top level of the file if possible
 ## Further cleanup
 * Convert lib/webapp/webapp.coffee into ES6 and remove the webapp.js
 * Remove lib/styleguide and references in lib/icon
+
+## Prevention
+
+* Convert this project into a tool that can be integrated in the Jenkins build
+* and/or convert this tool into a linter
+* test unresolved or unclear (!= 1) require targets
+* test requires with .coffee or .js
+* test requires with explicit index
+* (?) test requires on path without index file
