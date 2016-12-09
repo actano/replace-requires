@@ -67,11 +67,11 @@ Define requires at top level of the file if possible
 ### Coffee
 * [x] lib/di-container/index.coffee               Dynamic require
 * [x] lib/migration/MigrationRuleManager.coffee   Dynamic require
-* [x] lib/page-auth/client.coffee                 If statement as string to be evaluated later?????????
-* [x] lib/page-login-signup/client.coffee         If statement as string to be evaluated later?????????
+* [x] lib/page-auth/client.coffee                 Parameter passed
+* [x] lib/page-login-signup/client.coffee         Parameter passed
 * [x] lib/translation-map/index.coffee            Dynamic require
 * [x] login/test/browser.client.coffee            require('inject!login/view.coffee')
-* [x] page-login-signup/test/index.client.coffee  If statement as string to be evaluated later?????????
+* [x] page-login-signup/test/index.client.coffee  Parameter passed
 * [x] signup/test/browser.client.coffee           require('inject!signup')
 
 
