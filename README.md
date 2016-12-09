@@ -28,28 +28,25 @@ Use relative paths for everything else -> DONE
 * get rid of `lib` entry point for webpack
 * get rid of `lib/schedulemanager` entry point for webpack
 
-Explicitly name all filenames but 'index'
+Explicitly name all filenames but 'index' -> DONE
 * Explicitly name 'client' file in require,
 * get rid of the default `client` entry point for webpack
 
-Don't use file extensions for .coffee and .js files
+Don't use file extensions for .coffee and .js files -> DONE
 * Find requires with file extension .js / .coffee
 * Remove file extensions .js and .coffee
 
-Use file extensions for all other types (needed by webpack)
+Use file extensions for all other types (needed by webpack) -> DONE
 * Connect files with target
 * Print all targets that are not of type '.coffee' / '.js'
 * Manually repair
 
-
-
-
-Only use 'client' if there is also an 'index' file in the folder
+Only use 'client' if there is also an 'index' file in the folder -> DONE
 * Check if there are folders with file client.coffee/js but without index.coffee/js
 * In this case: Rename client files to index files
 * Adjust requires
 
-Do not use dynamic require paths
+Do not use dynamic require paths -> DONE
 * Check if dynamic require path are used
 * manually repair if necessary
 
@@ -90,3 +87,7 @@ Define requires at top level of the file if possible
 * test requires with .coffee or .js
 * test requires with explicit index
 * (?) test requires on path without index file
+
+## Clarify
+* lib/gantt-tree/test/performance/*.client are not executed, clarify with leonardo
+* lib/planning-object/action/translations is never used
