@@ -90,4 +90,3 @@ Define requires at top level of the file if possible
 
 ## Clarify
 * lib/gantt-tree/test/performance/*.client are not executed, clarify with leonardo
-* lib/planning-object/action/translations is never used
