@@ -81,6 +81,9 @@ class FileReader
 
         return nextLine
 
+    previewNextLine: ->
+        return @_nextLine
+
     @create: Promise.coroutine (file) ->
         fileReader = new FileReader(file)
         yield fileReader.initialize()
